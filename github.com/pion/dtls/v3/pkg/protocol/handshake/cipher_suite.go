@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 The Pion community <https://pion.ly>
+// SPDX-FileCopyrightText: 2026 The Pion community <https://pion.ly>
 // SPDX-License-Identifier: MIT
 
 package handshake
@@ -18,15 +18,17 @@ func decodeCipherSuiteIDs(buf []byte) ([]uint16, error) {
 
 		rtrn[i] = binary.BigEndian.Uint16(buf[(i*2)+2:])
 	}
+
 	return rtrn, nil
 }
 
 func encodeCipherSuiteIDs(cipherSuiteIDs []uint16) []byte {
 	out := []byte{0x00, 0x00}
-	binary.BigEndian.PutUint16(out[len(out)-2:], uint16(len(cipherSuiteIDs)*2))
+	binary.BigEndian.PutUint16(out[len(out)-2:], uint16(len(cipherSuiteIDs)*2)) //nolint:gosec // G115
 	for _, id := range cipherSuiteIDs {
 		out = append(out, []byte{0x00, 0x00}...)
 		binary.BigEndian.PutUint16(out[len(out)-2:], id)
 	}
+
 	return out
 }

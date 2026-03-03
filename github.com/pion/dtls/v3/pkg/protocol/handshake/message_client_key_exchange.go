@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 The Pion community <https://pion.ly>
+// SPDX-FileCopyrightText: 2026 The Pion community <https://pion.ly>
 // SPDX-License-Identifier: MIT
 
 package handshake
@@ -24,12 +24,12 @@ type MessageClientKeyExchange struct {
 	KeyExchangeAlgorithm types.KeyExchangeAlgorithm
 }
 
-// Type returns the Handshake Type
+// Type returns the Handshake Type.
 func (m MessageClientKeyExchange) Type() Type {
 	return TypeClientKeyExchange
 }
 
-// Marshal encodes the Handshake
+// Marshal encodes the Handshake.
 func (m *MessageClientKeyExchange) Marshal() (out []byte, err error) {
 	if m.IdentityHint == nil && m.PublicKey == nil {
 		return nil, errInvalidClientKeyExchange
@@ -37,7 +37,7 @@ func (m *MessageClientKeyExchange) Marshal() (out []byte, err error) {
 
 	if m.IdentityHint != nil {
 		out = append([]byte{0x00, 0x00}, m.IdentityHint...)
-		binary.BigEndian.PutUint16(out, uint16(len(out)-2))
+		binary.BigEndian.PutUint16(out, uint16(len(out)-2)) //nolint:gosec // G115
 	}
 
 	if m.PublicKey != nil {
@@ -48,7 +48,7 @@ func (m *MessageClientKeyExchange) Marshal() (out []byte, err error) {
 	return out, nil
 }
 
-// Unmarshal populates the message from encoded data
+// Unmarshal populates the message from encoded data.
 func (m *MessageClientKeyExchange) Unmarshal(data []byte) error {
 	switch {
 	case len(data) < 2:

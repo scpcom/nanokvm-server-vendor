@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2023 The Pion community <https://pion.ly>
+// SPDX-FileCopyrightText: 2026 The Pion community <https://pion.ly>
 // SPDX-License-Identifier: MIT
 
 package dtls
 
-// Session store data needed in resumption
+// Session store data needed in resumption.
 type Session struct {
 	// ID store session id
 	ID []byte
